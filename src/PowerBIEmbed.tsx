@@ -18,6 +18,7 @@ import {
 	IReportEmbedConfiguration,
 	IDashboardEmbedConfiguration,
 	ITileEmbedConfiguration,
+	IQuickCreateConfiguration
 } from 'powerbi-client';
 import { ReportLevelFilters, FiltersOperations } from 'powerbi-models';
 import isEqual from 'lodash.isequal';
@@ -42,7 +43,9 @@ export interface EmbedProps {
 	| ITileEmbedConfiguration
 	| IQnaEmbedConfiguration
 	| IVisualEmbedConfiguration
-	| IEmbedConfiguration;
+	| IEmbedConfiguration
+	| IQuickCreateConfiguration;
+
 
 	// Callback method to get the embedded PowerBI entity object (Optional)
 	getEmbeddedComponent?: { (embeddedComponent: Embed): void };
@@ -213,7 +216,7 @@ export class PowerBIEmbed extends React.Component<EmbedProps> {
 			if (this.props.phasedEmbedding) {
 				console.error(`Phased embedding is not supported for type ${this.props.embedConfig.type}`)
 			}
-			this.embed = this.powerbi.embed(this.containerRef.current, this.props.embedConfig);
+			this.embed = this.powerbi.quickCreate(this.containerRef.current, this.props.embedConfig);
 		}
 	}
 
